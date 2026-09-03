@@ -6,7 +6,7 @@ What was the name of the USB key inserted by Bob Smith?
 
 ## Investigation
 
-I started by looking for USB-related activity across the BOTS v1 dataset to identify which logs contained information about removable devices.
+I started by searching across the BOTS v1 dataset for USB-related activity to identify which logs contained information about removable devices.
 
 ```spl
 index=botsv1 ("USB" OR "USBSTOR" OR "Removable")
@@ -16,9 +16,9 @@ index=botsv1 ("USB" OR "USBSTOR" OR "Removable")
 
 The results showed USB-related activity across several sourcetypes, including `winregistry`.
 
-Since Windows stores information about previously connected USB storage devices in the registry, I focused the investigation on the registry events from Bob Smith's workstation, `we8105desk`.
+Since Windows stores information about previously connected USB storage devices in the registry, I focused on the registry activity from Bob Smith's workstation, `we8105desk`.
 
-I searched the USB-related registry paths and looked at the values stored in them.
+I searched the USB-related registry paths and reviewed the values stored within them.
 
 ```spl
 index=botsv1 sourcetype=winregistry host="we8105desk"
@@ -29,7 +29,7 @@ index=botsv1 sourcetype=winregistry host="we8105desk"
 
 This revealed a USB storage entry containing the value `MIRANDA_PRI`.
 
-To confirm that this was the device's friendly name, I narrowed the search specifically to `USBSTOR` registry entries containing `FriendlyName`.
+I then narrowed the search specifically to `USBSTOR` registry entries containing `FriendlyName` to confirm the name of the connected USB device.
 
 ```spl
 index=botsv1 sourcetype=winregistry host="we8105desk"
@@ -38,15 +38,17 @@ index=botsv1 sourcetype=winregistry host="we8105desk"
 | dedup data
 ```
 
-The result showed:
+The result showed the USB device friendly name as:
 
-`MIRANDA_PRI`
+**MIRANDA_PRI**
+
+## Evidence
+
+![USB Key Identification](../screenshots/investigation-24-usb-key-name.png)
 
 ## Finding
 
-The Windows registry evidence shows that the USB storage device connected to Bob Smith's workstation had the friendly name:
-
-**MIRANDA_PRI**
+The Windows registry activity confirmed that the USB storage device inserted into Bob Smith's workstation was identified by the friendly name `MIRANDA_PRI`.
 
 ## Answer
 
