@@ -2,7 +2,7 @@
 
 ## About This Project
 
-I worked through the Splunk Boss of the SOC (BOTS) v1 dataset to get more hands-on practice investigating security incidents in Splunk.
+I worked through the Splunk Boss of the SOC (BOTS) v1 dataset as a practical exercise to test and document my investigation approach across different security data sources.
 
 The investigation follows a simulated attack against Wayne Enterprises. I started with the initial web activity and worked through different parts of the attack, including reconnaissance, brute-force attempts, malware activity and eventually Cerber ransomware.
 
@@ -27,7 +27,7 @@ I mainly used Splunk and SPL for the investigation, but I also used tools such a
 
 One thing I ran into while working with the dataset was that some Sysmon fields were not automatically extracted in my Splunk environment. For those events, I had to work with the raw XML and use `rex` to extract fields such as `CommandLine`, `ParentProcessId` and `TargetFilename`.
 
-That made the investigation more useful because I wasn't always working with perfectly prepared data.
+This also meant working directly with raw event data when the fields I needed weren't already available in Splunk.
 
 ## Investigations
 
@@ -72,15 +72,15 @@ I completed 30 investigations covering different stages of the attack.
 29. [Cerber Encryptor File](investigations/29-cerber-encryptor-file.md)
 30. [Cerber Steganography](investigations/30-cerber-steganography.md)
 
-## What I Learned
+## What I Took From the Investigation
 
-The biggest thing I took from this project was that an investigation isn't usually solved with one search.
+One of the main things this investigation reinforced was the importance of following the evidence rather than relying on a single search or log source.
 
-A lot of the questions required me to find one piece of information first and then use that as a pivot into another log source.
+A lot of the questions required me to identify one piece of information first and then use that as a pivot into another source.
 
-For example, I moved between network traffic, Windows events, Sysmon process activity, Registry data and SMB activity while following the Cerber infection.
+For example, while following the Cerber infection, I moved between network traffic, Windows events, Sysmon process activity, Registry data and SMB activity to build a clearer picture of what was happening.
 
-I also got more comfortable using SPL commands such as:
+Throughout the investigation, I used SPL commands including:
 
 - `search`
 - `where`
@@ -92,9 +92,11 @@ I also got more comfortable using SPL commands such as:
 - `sort`
 - `dedup`
 
-The final Cerber investigation was also a good example of knowing when Splunk isn't enough. After identifying `mhtr.jpg` in the network logs, I had to use OSINT to understand why a JPEG was being used during the infection. That research showed that Cerber was hiding malicious content inside the image using steganography.
+The final Cerber investigation was also a good example of knowing when the available SIEM data wasn't enough on its own.
 
-Overall, this project helped me get more comfortable following evidence across different security logs instead of treating every alert or question as a separate investigation.
+After identifying `mhtr.jpg` in the network logs, I used OSINT to investigate why a JPEG file was being downloaded as part of the infection chain. The research showed that Cerber was hiding malicious content inside the image using steganography.
+
+Overall, the project was a useful way to test my investigation approach across multiple data sources and document how I moved from individual indicators to a wider understanding of the attack.
 
 ## Repository Structure
 
