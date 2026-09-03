@@ -16,7 +16,7 @@ index=botsv1 ("USB" OR "USBSTOR" OR "Removable")
 
 The results showed USB-related activity across several sourcetypes, including `winregistry`.
 
-Since Windows stores information about previously connected USB storage devices in the registry, I focused on the registry activity from Bob Smith's workstation, `we8105desk`.
+Since Windows stores information about connected USB storage devices in the registry, I focused on the registry activity from Bob Smith's workstation, `we8105desk`.
 
 I searched the USB-related registry paths and reviewed the values stored within them.
 
@@ -44,7 +44,7 @@ The result showed the USB device friendly name as:
 
 ## Evidence
 
-![USB Key Identification](../screenshots/investigation-24-usb-key-name.png)
+![USB Device Identification](../screenshots/investigation-24-usb-device-identification.png)
 
 ## Finding
 
